@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 /* turn off all borders from root element down*/
-* {
+/* * {
   border: none !important;
-}
+} */

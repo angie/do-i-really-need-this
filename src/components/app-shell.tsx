@@ -10,7 +10,7 @@ import {
   createStyles,
   useMantineTheme,
 } from "@mantine/core";
-import { useState, type ReactElement, type ReactNode } from "react";
+import { useState, type PropsWithChildren, type ReactElement } from "react";
 
 import { ActionIcon, Group, useMantineColorScheme } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
@@ -54,9 +54,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const Layout: (props: { children: ReactNode }) => ReactElement = ({
-  children,
-}) => {
+type TLayoutProps = PropsWithChildren<{
+  withNavbar?: boolean;
+}>;
+type TLayout = (props: TLayoutProps) => ReactElement;
+
+export const Layout: TLayout = ({ children, withNavbar = true }) => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const { classes } = useStyles();
@@ -71,14 +74,16 @@ export const Layout: (props: { children: ReactNode }) => ReactElement = ({
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
-        <Navbar
-          p="md"
-          hiddenBreakpoint="sm"
-          hidden={!opened}
-          width={{ sm: 200, lg: 300 }}
-        >
-          <Text>Application navbar</Text>
-        </Navbar>
+        withNavbar ? (
+          <Navbar
+            p="md"
+            hiddenBreakpoint="sm"
+            hidden={!opened}
+            width={{ sm: 200, lg: 300 }}
+          >
+            <Text>Application navbar</Text>
+          </Navbar>
+        ) : undefined
       }
       footer={
         <Footer
