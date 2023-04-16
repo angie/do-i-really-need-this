@@ -1,21 +1,18 @@
 import {
-  createStyles,
-  Title,
+  Button,
+  Col,
+  Grid,
   SimpleGrid,
   Text,
-  Button,
   ThemeIcon,
-  Grid,
-  Col,
+  Title,
+  createStyles,
   rem,
   useMantineTheme,
 } from "@mantine/core";
 import {
-  IconReceiptOff,
-  IconFlame,
-  IconCircleDotted,
-  IconFileCode,
   IconAward,
+  IconFlame,
   IconMoodCrazyHappy,
   IconReportMoney,
 } from "@tabler/icons-react";
