@@ -7,6 +7,7 @@ import {
   Navbar,
   Text,
   Title,
+  createStyles,
   useMantineTheme,
 } from "@mantine/core";
 import { useState, type ReactElement, type ReactNode } from "react";
@@ -44,23 +45,28 @@ const ActionToggle = () => {
   );
 };
 
+const useStyles = createStyles((theme) => ({
+  responsiveTitle: {
+    fontSize: theme.headings.sizes.h1.fontSize,
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: theme.fontSizes.xl,
+    },
+  },
+}));
+
 export const Layout: (props: { children: ReactNode }) => ReactElement = ({
   children,
 }) => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const { classes } = useStyles();
+
   return (
     <AppShell
       styles={{
         root: {
           border: 0,
         },
-        // main: {
-        //   background:
-        //     theme.colorScheme === "dark"
-        //       ? theme.colors.dark[8]
-        //       : theme.colors.gray[0],
-        // },
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
@@ -107,12 +113,11 @@ export const Layout: (props: { children: ReactNode }) => ReactElement = ({
                 mr="xl"
               />
             </MediaQuery>
-
             <Title
+              className={classes.responsiveTitle}
               color={theme.colorScheme === "dark" ? "white" : "black"}
               weight={800}
               transform="uppercase"
-              size="h1"
               italic
             >
               do i really need this?
