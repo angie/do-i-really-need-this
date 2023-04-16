@@ -10,8 +10,28 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Wishlist {
+  id        String         @id @unique @default(cuid())
+  name      String?
+  items     WishlistItem[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model WishlistItem {
+  id          String    @id @unique @default(cuid())
+  name        String
+  description String?
+  tags        Tag[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Wishlist    Wishlist? @relation(fields: [wishlistId], references: [id])
+  wishlistId  String?
+}
+
+model Tag {
+  id             String        @id @unique @default(cuid())
+  name           String        @unique
+  WishlistItem   WishlistItem? @relation(fields: [wishlistItemId], references: [id])
+  wishlistItemId String?
 }
